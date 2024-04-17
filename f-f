@@ -24,3 +24,4 @@ Serial.println(” *C “); //Вывод показателей на экран
 }
 
 #define DHTTYPE DHT11
+DHT dht(DHTPIN, DHTTYPE);
