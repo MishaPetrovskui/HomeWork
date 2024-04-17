@@ -1,0 +1,58 @@
+#include "DHT.h"
+#define DHTPIN 12     //до якого піну буде підключений вивід Data
+
+//вибір датчика
+#define DHTTYPE DHT11   // DHT 11 
+//#define DHTTYPE DHT22   // DHT 22  (AM2302)
+//#define DHTTYPE DHT21   // DHT 21 (AM2301)
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C LCD(0x27,16,2);
+
+//ініціалізація датчика
+DHT dht(DHTPIN, DHTTYPE);
+
+int line = 0;
+
+#define sensor A0
+
+#define piezo 10
+
+void setup() {
+  Serial.begin(9600); 
+  dht.begin();
+  LCD.init();
+  LCD.backlight();
+  
+}
+
+void loop() {
+  // зчитування температури і вологості займе приблизно 250 мілісекунд
+  int h = analogRead(sensor);
+  float t = dht.readTemperature();
+
+  // перевіряємо чи правильні дані отримали
+  if (isnan(t) || isnan(h)) {
+    Serial.println("Error reading from DHT");
+  } else {
+    for (int i = 0; i < 20; i++) {
+      LCD.clear();
+      LCD.print("Temperature:");
+      LCD.print(t);
+      LCD.setCursor(0,1);
+      LCD.print("Humidity: ");
+      LCD.print(h);
+      Serial.print(h);
+      delay(1000);
+    }
+    if (h>800)
+    {
+      tone(piezo,1000);
+    }
+    else
+    {
+      noTone(piezo);
+    }
+  }
+}
