@@ -22,3 +22,5 @@ Serial.print(“Температура: “);
 Serial.print(t);
 Serial.println(” *C “); //Вывод показателей на экран
 }
+
+#define DHTTYPE DHT11
