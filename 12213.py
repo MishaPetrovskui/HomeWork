@@ -2,12 +2,12 @@ import random
 def generate_expression():
     operators = ['+', '-', '*', '/']
     operator = random.choice(operators)
-    num1 = random.randint(1, 10)
-    num2 = random.randint(1, 10)
+    num1 = random.randint(1, 100)
+    num2 = random.randint(1, 100)
     if operator == '/':
         while num1 % num2 != 0:
-            num1 = random.randint(1, 10)
-            num2 = random.randint(1, 10)
+            num1 = random.randint(1, 100)
+            num2 = random.randint(1, 100)
     expression = str(num1) + ' ' + operator + ' ' + str(num2)
     return expression
 def calculate(num1, operator, num2):
